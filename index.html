@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+  <title>espell color palettes</title>
+  <style>
+    body {
+      font-family: Segoe UI, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      margin-top: 2em;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .palette-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .color-card {
+      width: 140px;
+      cursor: pointer;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      background: white;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    .color-card:hover {
+      transform: scale(1.02);
+    }
+
+    .color-swatch {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9em;
+    }
+
+    .color-label {
+      padding: 10px;
+      font-size: 0.85em;
+      text-align: center;
+      background: white;
+    }
+
+    @media (max-width: 600px) {
+      .color-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>espell brand colors</h2>
+  <div class="palette-grid">
+    <div class="color-card" onclick="copyColor('#A073DD')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #A073DD;">#A073DD</div>
+      <div class="color-label">espell lila</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#231F20')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #231F20;">#231F20</div>
+      <div class="color-label">espell fekete</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#383838')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #383838;">#383838</div>
+      <div class="color-label">espell szürke</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#FBFBFB')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #FBFBFB;">#FBFBFB</div>
+      <div class="color-label">espell majdnemfehér</div>
+    </div>
+  </div>
+
+  <h2>Primary Colors</h2>
+  <div class="palette-grid">
+    <div class="color-card" onclick="copyColor('#A073DD')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #A073DD;">#A073DD</div>
+      <div class="color-label">espell lila</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#C5467B')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #C5467B;">#C5467B</div>
+      <div class="color-label">rózsaszín</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#2D194C')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #2D194C;">#2D194C</div>
+      <div class="color-label">indigó</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#2C9C94')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #2C9C94;">#2C9C94</div>
+      <div class="color-label">mentazöld</div>
+    </div>
+  </div>
+
+  <h2>Secondary Colors</h2>
+  <div class="palette-grid">
+    <div class="color-card" onclick="copyColor('#F0B105')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #F0B105;">#F0B105</div>
+      <div class="color-label">sárga</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#0277B6')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #0277B6;">#0277B6</div>
+      <div class="color-label">kék</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#A32B1A')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #A32B1A;">#A32B1A</div>
+      <div class="color-label">piros</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#E06147')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #E06147;">#E06147</div>
+      <div class="color-label">narancssárga</div>
+    </div>
+        <div class="color-card" onclick="copyColor('#006C56')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #006C56;">#006C56</div>
+      <div class="color-label">zöld</div>
+    </div>
+        <div class="color-card" onclick="copyColor('#63B6C5')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #63B6C5;">#63B6C5</div>
+      <div class="color-label">világoskék</div>
+    </div>
+    
+  <h2>Neutral Colors</h2>
+  <div class="palette-grid">
+    <div class="color-card" onclick="copyColor('#FBFBFB')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #FBFBFB;">#FBFBFB</div>
+      <div class="color-label">espell majdnemfehér</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#C6C6C6')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #C6C6C6;">#C6C6C6</div>
+      <div class="color-label">neutral 02</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#939393')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #939393;">#939393</div>
+      <div class="color-label">neutral 03</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#707070')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #707070;">#707070</div>
+      <div class="color-label">neutral 04</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#525252')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #525252;">#525252</div>
+      <div class="color-label">neutral 05</div>
+    </div>
+    <div class="color-card" onclick="copyColor('#383838')" title="click to copy color code">
+      <div class="color-swatch" style="background-color: #383838;">#383838</div>
+      <div class="color-label">espell szürke</div>
+    </div>
+  </div>    
+
+    
+  </div>
+
+  <script>
+    function copyColor(hex) {
+      navigator.clipboard.writeText(hex).then(() => {
+        alert(`Copied ${hex} to clipboard`);
+      });
+    }
+
+    // Converts rgb(r, g, b) to #rrggbb
+    function rgbToHex(rgb) {
+      const result = rgb.match(/\d+/g).map(x =>
+        parseInt(x).toString(16).padStart(2, '0')
+      );
+      return `#${result.join('')}`.toUpperCase();
+    }
+
+    // Determine contrast color
+    function getContrastYIQ(hex) {
+      hex = hex.replace("#", "");
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+      return yiq >= 128 ? 'black' : 'white';
+    }
+
+    // Apply contrast-based text color to each swatch
+    document.querySelectorAll('.color-swatch').forEach((el) => {
+      const bgColor = window.getComputedStyle(el).backgroundColor;
+      const hexColor = rgbToHex(bgColor);
+      const textColor = getContrastYIQ(hexColor);
+      el.style.color = textColor;
+    });
+  </script>
+</body>
+</html>
