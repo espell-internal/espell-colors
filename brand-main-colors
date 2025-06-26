@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Palette Widget</title>
+  <style>
+    body {
+      margin: 20px;
+      font-family: Segoe UI, sans-serif;
+    }
+
+    .palette {
+      display: flex;
+    }
+
+    .color {
+      width: 80px;
+      height: 140px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8em;
+    }
+
+    .light {
+      color: #000;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+    <p style="font-size: 0.9em; margin-top: 10px;">Font: <b>Red Hat Display</b> or <b>Verdana</b></p>
+  <div class="palette">
+    <div class="color" onclick="navigator.clipboard.writeText('#A073DD')" title="#A073DD"
+         style="background-color: #A073DD;">#A073DD</div>
+
+    <div class="color" onclick="navigator.clipboard.writeText('#231F20')" title="#231F20"
+         style="background-color: #231F20;">#231F20</div>
+
+    <div class="color" onclick="navigator.clipboard.writeText('#383838')" title="#383838"
+         style="background-color: #383838;">#383838</div>
+
+    <div class="color light" onclick="navigator.clipboard.writeText('#FBFBFB')" title="#FBFBFB"
+         style="background-color: #FBFBFB;">#FBFBFB</div>
+
+    <div class="color light" onclick="navigator.clipboard.writeText('#FFFFFF')" title="#FFFFFF"
+         style="background-color: #FFFFFF;">#FFFFFF</div>
+  </div>
+
+  <p style="font-size: 0.9em; margin-top: 10px;">click a color to copy the code</p>
+</body>
+</html>
