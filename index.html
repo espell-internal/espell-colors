@@ -207,14 +207,157 @@
     .mega-grid { grid-template-columns: repeat(2, 1fr); }
     .grid-header, .grid-caption { grid-column: span 2 !important; }
   }
+
+  /* ===== Collapsible sections ===== */
+  /* Set each section's initial state via data-default="open" or "closed" on the <section> tag below in the HTML. */
+  .collapsible-section {
+    margin-bottom: 8px;
+  }
+
+  /* Extra breathing room before this specific section. Add this class to any
+     <section> in the HTML below if it needs more separation from the one above it. */
+  .collapsible-section.extra-gap-above {
+    margin-top: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-header .page-subheading {
+    margin: 0;
+  }
+
+  /* Wraps the header row + optional subtitle. This element (not the h2 or the
+     subtitle individually) owns the space before the color grid, so the gap
+     below the heading stays identical whether or not a subtitle is present. */
+  .section-heading {
+    margin: 40px 0 28px;
+  }
+
+  .collapsible-section:first-child .section-heading {
+    margin-top: 0;
+  }
+
+  /* Optional per-section subtitle. Add a <p class="section-subtitle"> right after
+     the .section-header div (inside .section-heading) for any heading that needs one -
+     it's fine to leave it out entirely for headings that don't. */
+  .section-subtitle {
+    margin: 6px 0 0 32px;
+    font-size: 0.85em;
+    color: var(--text-muted);
+  }
+
+  .chevron-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #555;
+  }
+
+  .chevron-btn:hover {
+    background: #eee;
+  }
+
+  .chevron-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .collapsible-section.collapsed .chevron-btn svg {
+    transform: rotate(-90deg);
+  }
+
+  .section-body {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+
+  .collapsible-section.collapsed .section-body {
+    grid-template-rows: 0fr;
+  }
+
+  .section-body-inner {
+    overflow: hidden;
+  }
+
+  /* ===== Row spotlight (Combinations section) ===== */
+  /* Edit this value to control how dim the non-spotlighted rows become (0 = invisible, 1 = no dimming). */
+  :root {
+    --dim-opacity: 0.12;
+  }
+
+  .mega-grid {
+    transition: opacity 0.2s ease;
+  }
+
+  .mega-grid.dimmed {
+    opacity: var(--dim-opacity);
+  }
+
+  /* Toggle card is deliberately NOT built from .color-swatch/.color-info like the
+     real cards - no card background, shadow, or border, so it reads as empty space
+     (like a placeholder) with just an icon + label floating in it. Height is fixed
+     so it still lines up with the real cards' height in the same row. */
+  .color-card.toggle {
+    height: 126px;
+    cursor: pointer;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #b0b0b0;
+    transition: color 0.15s ease;
+  }
+
+  .color-card.toggle:hover {
+    color: #808080;
+  }
+
+  .color-card.toggle svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .color-card.toggle .spotlight-label {
+    font-size: 0.76em;
+  }
+
+  .mega-grid.spotlight-active .color-card.toggle {
+    color: #222;
+  }
 </style>
 </head>
 <body>
 
   <h1>various espell colors</h1>
-  <p class="subtitle-for-title">click on the swatch to copy its hex code | saturated colors: teams; pastels: functions</p>
+  <p class="subtitle-for-title">click on the swatch to copy its hex code</p>
 
-  <h2 class="page-subheading">Brand colors</h2>
+  <section class="collapsible-section" data-default="open">
+  <div class="section-heading">
+    <div class="section-header">
+      <button class="chevron-btn" onclick="toggleSection(this)" aria-label="Toggle section">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 class="page-subheading">Brand colors</h2>
+    </div>
+    <!-- To give this heading a subtitle, add: <p class="section-subtitle">your text</p> right here -->
+  </div>
+  <div class="section-body"><div class="section-body-inner">
+
   
  <div class="mega-grid">
   <!-- ===== 4 colors 2 placeholders ===== -->
@@ -271,7 +414,21 @@
   
 
     
+      
+  </div></div>
+</section>
+<section class="collapsible-section" data-default="closed">
+  <div class="section-heading">
+    <div class="section-header">
+      <button class="chevron-btn" onclick="toggleSection(this)" aria-label="Toggle section">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
       <h2 class="page-subheading">Teams &amp; functions</h2>
+    </div>
+    <p class="section-subtitle">saturated colors: teams | pastels: functions</p>
+  </div>
+  <div class="section-body"><div class="section-body-inner">
+
 
 
   <div class="mega-grid">
@@ -536,7 +693,21 @@
   </div>
 
  
-   <h2 class="page-subheading">Combinations</h2>
+   
+  </div></div>
+</section>
+<section class="collapsible-section extra-gap-above" data-default="open">
+  <div class="section-heading">
+    <div class="section-header">
+      <button class="chevron-btn" onclick="toggleSection(this)" aria-label="Toggle section">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <h2 class="page-subheading">Combinations</h2>
+    </div>
+    <p class="section-subtitle">click a spotlight circle to isolate one row</p>
+  </div>
+  <div class="section-body"><div class="section-body-inner">
+
   
  <div class="mega-grid">
   <!-- row1 -->
@@ -576,13 +747,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -626,13 +793,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -677,13 +840,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -727,13 +886,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -777,13 +932,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -827,13 +978,9 @@
       </div>
     </div>
 
-    <div class="color-card placeholder">
-      <div class="color-swatch"></div>
-      <div class="color-info">
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-        <div class="info-row">&nbsp;</div>
-      </div>
+    <div class="color-card toggle" onclick="toggleSpotlight(this)">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="spotlight-label">Spotlight row</span>
     </div>
  
 
@@ -845,7 +992,10 @@
  
  
  
- <div class="copied-toast" id="toast">Copied</div>
+ 
+  </div></div>
+</section>
+<div class="copied-toast" id="toast">Copied</div>
 
   <script>
     // Single source of truth: each .color-card's data-hex attribute.
@@ -869,6 +1019,37 @@
         clearTimeout(window._toastTimer);
         window._toastTimer = setTimeout(() => toast.classList.remove('show'), 1200);
       });
+    }
+
+    // ===== Collapsible sections =====
+    // Each <section class="collapsible-section" data-default="open|closed"> starts in the
+    // state set by its data-default attribute (set directly in the HTML above). Clicking the
+    // chevron just toggles the "collapsed" class from there.
+    function toggleSection(btn) {
+      const section = btn.closest('.collapsible-section');
+      section.classList.toggle('collapsed');
+    }
+
+    // ===== Row spotlight (Combinations section) =====
+    // Clicking a row's spotlight toggle dims every other row within the same
+    // collapsible section. Clicking the active row's toggle again clears it.
+    function toggleSpotlight(toggleEl) {
+      const row = toggleEl.closest('.mega-grid');
+      const container = row.closest('.section-body-inner');
+      const allRows = container.querySelectorAll('.mega-grid');
+      const wasActive = row.classList.contains('spotlight-active');
+
+      allRows.forEach(r => {
+        r.classList.remove('spotlight-active');
+        r.classList.remove('dimmed');
+      });
+
+      if (!wasActive) {
+        row.classList.add('spotlight-active');
+        allRows.forEach(r => {
+          if (r !== row) r.classList.add('dimmed');
+        });
+      }
     }
   </script>
 
