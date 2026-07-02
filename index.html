@@ -1,282 +1,876 @@
-<html lang="en">
 <!DOCTYPE html>
-<head>
-  <meta charset="UTF-8" />
-  <meta name="robots" content="noindex" />
-  <title>espell color palettes</title>
-  <style>
-    body {
-      font-family: Segoe UI, sans-serif;
-      margin: 20px;<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="robots" content="noindex" />
-  <title>Color Palette</title>
-  <style>
-    body {
-      font-family: Segoe UI, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
-    }
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex" />
+<title>espellcolors</title>
+<style>
+  :root {
+    --bg: #f9f9f9;
+    --card-bg: #ffffff;
+    --border: #eee;
+    --text-muted: #666;
+  }
 
-    h2 {
-      margin-top: 2em;
-      font-size: 1.2em;
-      color: #333;
-    }
+  * { box-sizing: border-box; }
 
-    .palette-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 10px;
-    }
+  body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 32px 24px 64px;
+    background: var(--bg);
+    color: #222;
+  }
 
-    .color-card {
-      width: 170px;
-      cursor: pointer;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-      background: white;
-      transition: transform 0.1s ease-in-out;
-    }
+  h1 {
+    font-size: 1.4em;
+    margin: 0 0 6px;
+  }
 
-    .color-card:hover {
-      transform: scale(1.02);
-    }
+  .subtitle-for-title {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin: 0 0 28px;
+  }
+  
+  .subtitle-for-heading {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin: 0 0 28px;
+  }
 
-    .color-swatch {
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9em;
-      color: white;
-    }
+  /* Level between the page title and the Color family labels */
+  .page-subheading {
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #222;
+    margin: 40px 0px 20px 0px;
+  }
 
-    .color-light {
-      color: black;
-      border-bottom: 1px solid #ddd;
-    }
+  /* ===== big grid ===== */
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px 14px;
+    align-items: start;
+  }
+  
 
-    .color-label {
-      padding: 10px;
-      font-size: 0.8em;
-      background: white;
-    }
 
-    .label-line {
-      display: flex;
-      justify-content: space-between;
-      padding: 2px 0;
-      border-bottom: 1px solid #eee;
-    }
+  /* Header cells above the top block (span multiple columns) */
+  .grid-header {
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  /* Lila Kek Rozsaszin*/
+  .grid-header h3 {
+    margin: 0 0 2px;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #222;
+  }
 
-    .label-line:last-child {
-      border-bottom: none;
-    }
+  /* espell & relationships*/
+  .grid-header p {
+    margin: 0;
+    font-size: 0.78em;
+    color: var(--text-muted);
+  }
 
-    .label-key {
-      color: #666;
-    }
+  /* Caption cells below the bottom block (single column each) */
+  .grid-caption {
+    padding-top: 4px;
+    border-top: 1px solid #e2e2e2;
+  }
 
-    .label-value {
-      font-weight: 500;
-    }
+  .grid-caption h3 {
+    margin: 0 0 2px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #222;
+  }
 
-    @media (max-width: 600px) {
-      .color-card {
-        width: 100%;
-      }
-    }
-  </style>
+  .grid-caption p {
+    margin: 0;
+    font-size: 0.75em;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  /* ===== Cards ===== */
+  .color-card {
+    width: 100%;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    background: var(--card-bg);
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .color-card:hover {
+    transform: scale(1.03);
+  }
+
+  .color-card.placeholder {
+    cursor: default;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .color-card.placeholder:hover {
+    transform: none;
+  }
+
+  .color-swatch {
+    position: relative;
+    height: 90px;
+  }
+
+  .placeholder .color-swatch {
+    background: #f9f9f9;
+  }
+
+  .color-swatch img.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+  }
+
+  .color-info {
+    padding: 8px 10px;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.76em;
+    min-height: 1.2em;
+  }
+
+  .info-row:last-child {
+    border-bottom: none;
+  }
+
+  .placeholder .info-row {
+    border-bottom-color: transparent;
+  }
+
+  .info-key {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .info-value {
+    font-weight: 500;
+    text-align: right;
+  }
+
+  .hex-value {
+    font-family: "SF Mono", Consolas, monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .copied-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: #222;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .copied-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 800px) {
+    .mega-grid { grid-template-columns: repeat(3, 1fr); }
+    .grid-header, .grid-caption { grid-column: span 3 !important; }
+  }
+
+  @media (max-width: 480px) {
+    .mega-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid-header, .grid-caption { grid-column: span 2 !important; }
+  }
+</style>
 </head>
 <body>
 
-  <h2>brand colors</h2>
-  <div class="palette-grid">
-    <div class="color-card" onclick="copyColor('A073DD')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #A073DD;">#A073DD</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell lila</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">internal, Marketing</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+  <h1>various espell colors</h1>
+  <p class="subtitle-for-title">click on the swatch to copy its hex code | saturated colors: teams; pastels: functions</p>
+
+  <h2 class="page-subheading">Brand colors</h2>
+  
+ <div class="mega-grid">
+  <!-- ===== 4 colors 2 placeholders ===== -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('231F20')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #231F20;">#231F20</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell fekete</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card" data-hex="231F20" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('383838')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #383838;">#383838</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell szürke</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Sys</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card" data-hex="383838" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('FBFBFB')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #FBFBFB;">#FBFBFB</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell "fehér"</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card" data-hex="FBFBFB" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+  
+
+    
+      <h2 class="page-subheading">Teams &amp; functions</h2>
+
+
+  <div class="mega-grid">
+
+    <!-- ===== Header row: Lila (3) / Kék (2) / Rózsaszin (1) ===== -->
+    <div class="grid-header" style="grid-column: span 3;">
+      <h3>Lila</h3>
+      <p>espell &amp; relationships</p>
+    </div>
+    <div class="grid-header" style="grid-column: span 2;">
+      <h3>Kék</h3>
+      <p>delivery &amp; production</p>
+    </div>
+    <div class="grid-header" style="grid-column: span 1;">
+      <h3>Rózsaszín</h3>
+      <p>people &amp; management</p>
+    </div>
+
+    <!-- ===== Row 1 ===== -->
+    <div class="color-card" data-hex="B59AB9" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_compliance.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Compliance</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="B9A8D3" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_wiki.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">wiki</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="8C95BA" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/pot_sales_salesforce.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Salesforce ut&oacute;d?</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="8DBCCE" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_production.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Production</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Kék</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/pot_production.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Free space (prod)</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Kék</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="CCA1B2" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_hr.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">HR</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">R&oacute;zsaszín</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <!-- ===== Row 2 ===== -->
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_marketing.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Marketing</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_internal.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">espell internal</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_sales.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Sales Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Lila</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="026AA2" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_localization.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Localization Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Kék</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2C899C" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_pm.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">PM Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Kék</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C5467B" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_management.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Management Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">R&oacute;zsaszín</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <!-- ===== Row 3: placeholder, Zold, Piros, Narancs, Sarga, Szurke ===== -->
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="006C56" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_finance.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Finance Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Z&ouml;ld</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="A32B1A" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_vm.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">VM Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Piros</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="E06147" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_translators.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Translators Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Narancs</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="F0B105" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_solutions.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Solutions Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">S&aacute;rga</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="383838" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/team_sys.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Sys Team</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Sz&uuml;rke</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <!-- ===== Row 4: placeholder, Zold, Piros, Narancs, Sarga, placeholder ===== -->
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="84C29E" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_admin.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Admin</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Z&ouml;ld</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="CC7D72" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_providers.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Providers</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Piros</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="DCAC7F" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/pot_linguistic.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Free space (linguistic)</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">Narancs</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="E4C76F" onclick="copyColor(this)">
+      <div class="color-swatch"><img class="icon" src="icons/function_infrastructure.png" alt=""></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Name</span><span class="info-value">Infrastructure</span></div>
+        <div class="info-row"><span class="info-key">Group</span><span class="info-value">S&aacute;rga</span></div>
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+
+    <!-- ===== Caption row: below bottom block, one column each ===== -->
+    <div></div>
+    <div class="grid-caption">
+      <h3>Z&ouml;ld</h3>
+      <p>Finance, records &amp; admin</p>
+    </div>
+    <div class="grid-caption">
+      <h3>Piros</h3>
+      <p>Partners &amp; suppliers</p>
+    </div>
+    <div class="grid-caption">
+      <h3>Narancs</h3>
+      <p>Linguistics &amp; quality</p>
+    </div>
+    <div class="grid-caption">
+      <h3>S&aacute;rga</h3>
+      <p>Solutions &amp; tooling</p>
+    </div>
+    <div class="grid-caption">
+      <h3>Sz&uuml;rke</h3>
+      <p>Internal systems &amp; tooling</p>
+    </div>
+
   </div>
 
-  <h2>primary colors</h2>
-  <div class="palette-grid">
-    <div class="color-card" onclick="copyColor('A073DD')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #A073DD;">#A073DD</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell lila</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">internal, Marketing</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+ 
+   <h2 class="page-subheading">Combinations</h2>
+  
+ <div class="mega-grid">
+  <!-- row1 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('C5467B')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #C5467B;">#C5467B</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">rózsaszín</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Management Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('2D194C')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #2D194C;">#2D194C</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">indigó</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Sales Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('2C9C94')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #2C9C94;">#2C9C94</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">türkiz</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">PM Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-  </div>
 
-  <h2>secondary colors</h2>
-  <div class="palette-grid">
-    <div class="color-card" onclick="copyColor('F0B105')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #F0B105;">#F0B105</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">sárga</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Solutions Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('0277B6')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #0277B6;">#0277B6</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">kék</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Translators Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('A32B1A')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #A32B1A;">#A32B1A</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">piros</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">VM Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('E06147')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #E06147;">#E06147</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">narancssárga</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Localization Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('006C56')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #006C56;">#006C56</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">zöld</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Finance Team</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('8DBCCE')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #8DBCCE;">#8DBCCE</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">világoskék</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">Production</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-  </div>
 
-  <h2>neutral colors</h2>
-  <div class="palette-grid">
-    <div class="color-card" onclick="copyColor('FBFBFB')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #FBFBFB;">#FBFBFB</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell "fehér"</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+    <div class="color-card" data-hex="2C899C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('C6C6C6')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #C6C6C6;">#C6C6C6</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">neutral 02</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('939393')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #939393;">#939393</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">neutral 03</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card" data-hex="C5467B" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('707070')" title="click to copy color">
-      <div class="color-swatch color-light" style="background-color: #707070;">#707070</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">neutral 04</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
       </div>
     </div>
-    <div class="color-card" onclick="copyColor('525252')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #525252;">#525252</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">neutral 05</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
-    <div class="color-card" onclick="copyColor('383838')" title="click to copy color">
-      <div class="color-swatch" style="background-color: #383838;">#383838</div>
-      <div class="color-label">
-        <div class="label-line"><span class="label-key">Name</span><span class="label-value">espell szürke</span></div>
-        <div class="label-line"><span class="label-key">Group</span><span class="label-value">n/a</span></div>
-        <div class="label-line"><span class="label-key">Label</span><span class="label-value">Value</span></div>
-      </div>
-    </div>
+ 
+
   </div>
+  
+   <div class="mega-grid">
+  <!-- row2 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C5467B" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="84C29E" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="DCAC7F" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="CCA1B2" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+  
+       <div class="mega-grid">
+  <!-- row3 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="026AA2" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="E4C76F" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+       <div class="mega-grid">
+  <!-- row4 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="A32B1A" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="F0B105" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+     <div class="mega-grid">
+  <!-- row5 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C5467B" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="84C29E" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="E4C76F" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+   <div class="mega-grid">
+  <!-- row6 -->
+ 
+    <div class="color-card" data-hex="A073DD" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value"></span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="2D194C" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="C5467B" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="CCA1B2" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card" data-hex="A32B1A" onclick="copyColor(this)">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
+      </div>
+    </div>
+
+    <div class="color-card placeholder">
+      <div class="color-swatch"></div>
+      <div class="color-info">
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+        <div class="info-row">&nbsp;</div>
+      </div>
+    </div>
+ 
+
+  </div>
+  
+  
+ 
+  
+ 
+ 
+ 
+ <div class="copied-toast" id="toast">Copied</div>
 
   <script>
-    function copyColor(hex) {
+    // Single source of truth: each .color-card's data-hex attribute.
+    // This script paints the swatch background and fills in the hex
+    // label from that one value, so recoloring a box means editing
+    // exactly one string.
+    document.querySelectorAll('.color-card[data-hex]').forEach(card => {
+      const hex = card.dataset.hex;
+      const swatch = card.querySelector('.color-swatch');
+      const hexLabel = card.querySelector('.hex-value');
+      swatch.style.backgroundColor = '#' + hex;
+      hexLabel.textContent = '#' + hex;
+    });
+
+    function copyColor(card) {
+      const hex = '#' + card.dataset.hex;
       navigator.clipboard.writeText(hex).then(() => {
-        alert(`Copied ${hex} to clipboard`);
+        const toast = document.getElementById('toast');
+        toast.textContent = `Copied ${hex}`;
+        toast.classList.add('show');
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => toast.classList.remove('show'), 1200);
       });
     }
   </script>
+
 </body>
 </html>
