@@ -294,7 +294,7 @@
   /* ===== Row spotlight (Combinations section) ===== */
   /* Edit this value to control how dim the non-spotlighted rows become (0 = invisible, 1 = no dimming). */
   :root {
-    --dim-opacity: 0.12;
+    --dim-opacity: 0.15;
   }
 
   .mega-grid {
@@ -484,7 +484,7 @@
       </div>
     </div>
 
-    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+    <div class="color-card" data-hex="B9E1E4" onclick="copyColor(this)">
       <div class="color-swatch"><img class="icon" src="icons/pot_production.png" alt=""></div>
       <div class="color-info">
         <div class="info-row"><span class="info-key">Name</span><span class="info-value">Free space (prod)</span></div>
@@ -733,7 +733,7 @@
       </div>
     </div>
 
-    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+    <div class="color-card" data-hex="B9E1E4" onclick="copyColor(this)">
       <div class="color-swatch"></div>
       <div class="color-info">
         <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
@@ -826,7 +826,7 @@
       </div>
     </div>
 
-    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+    <div class="color-card" data-hex="B9E1E4" onclick="copyColor(this)">
       <div class="color-swatch"></div>
       <div class="color-info">
         <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
@@ -879,7 +879,7 @@
       </div>
     </div>
 
-    <div class="color-card" data-hex="C6E9EC" onclick="copyColor(this)">
+    <div class="color-card" data-hex="B9E1E4" onclick="copyColor(this)">
       <div class="color-swatch"></div>
       <div class="color-info">
         <div class="info-row"><span class="info-key">Hex</span><span class="info-value hex-value">Value</span></div>
@@ -1022,9 +1022,15 @@
     }
 
     // ===== Collapsible sections =====
-    // Each <section class="collapsible-section" data-default="open|closed"> starts in the
-    // state set by its data-default attribute (set directly in the HTML above). Clicking the
-    // chevron just toggles the "collapsed" class from there.
+    // ===== Collapsible sections =====
+    // Each <section class="collapsible-section" data-default="open|closed"> reads its
+    // data-default attribute on page load to decide whether to start collapsed - that
+    // attribute is the only thing you need to edit per section. The chevron click just
+    // toggles the "collapsed" class from whatever state that produced.
+    document.querySelectorAll('.collapsible-section').forEach(section => {
+      section.classList.toggle('collapsed', section.dataset.default === 'closed');
+    });
+
     function toggleSection(btn) {
       const section = btn.closest('.collapsible-section');
       section.classList.toggle('collapsed');
