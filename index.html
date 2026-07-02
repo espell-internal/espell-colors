@@ -861,7 +861,7 @@
     });
 
     function copyColor(card) {
-      const hex = '#' + card.dataset.hex;
+      const hex = card.dataset.hex;
       navigator.clipboard.writeText(hex).then(() => {
         const toast = document.getElementById('toast');
         toast.textContent = `Copied ${hex}`;
